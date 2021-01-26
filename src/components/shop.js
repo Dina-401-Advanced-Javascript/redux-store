@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import Container from '@material-ui/core/Container';
-// import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography';
 import { CardContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-//import { increment } from '../store/shop';
 import './shop.scss'
 
 // const mapDispatchToProps = { increment, reset };
@@ -56,9 +53,12 @@ function Shop(props) {
 }
 
 const mapStateToProps = state => ({
-  products: state.shop.products,
-  activeCategory: state.shop.activeCategory,
-  categories: state.shop.categories
+  // products: state.shop.products,
+  // activeCategory: state.shop.activeCategory,
+  // categories: state.shop.categories
+  products: state.products.products,
+  activeCategory: state.categories.activeCategory,
+  categories: state.categories.categories
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

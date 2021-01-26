@@ -9,14 +9,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
-import { changeCategory } from '../store/shop';
+import { changeCategory } from '../store/categories';
 
-// const mapDispatchToProps = { increment, reset };
 const mapDispatchToProps = { changeCategory };
 
 function Header(props) {
   const changeCategory = (name) => {
-    // console.log('change category to ', name);
     props.changeCategory(name);
   }
 
@@ -50,9 +48,11 @@ function Header(props) {
 }
 
 const mapStateToProps = state => ({
-  products: state.shop.products,
-  activeCategory: state.shop.activeCategory,
-  categories: state.shop.categories
+  // products: state.shop.products,
+  // activeCategory: state.shop.activeCategory,
+  // categories: state.shop.categories
+  activeCategory: state.categories.activeCategory,
+  categories: state.categories.categories
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
