@@ -34,7 +34,7 @@ function Header(props) {
           {props.categories.map((category) => {
             return (<Button color="inherit" onClick={() => changeCategory(category.name)}>{category.displayName}</Button>)
           })}
-          <Button color="inherit">Login</Button>
+          {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>
       <Container maxWidth='md'>
