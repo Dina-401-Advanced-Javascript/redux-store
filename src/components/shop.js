@@ -13,10 +13,10 @@ const mapDispatchToProps = {};
 
 function Shop(props) {
   console.log({ props });
-  // const voteForCandidate = (name) => {
-  // console.log('vote for Candidate', name);
-  // props.increment(name);
-  // }
+  const addToCart = (product) => {
+    console.log('adding to cart: ', product);
+    //props.addToCart(name);
+  }
 
   return (
     <div id="shop">
@@ -41,13 +41,20 @@ function Shop(props) {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Add to Cart</Button>
+                    <Button size="small" onClick={() => addToCart([product])}>Add to Cart</Button>
                   </CardActions>
                 </Card>
               </div> </Grid>
             : <div></div>
         ))}
       </Grid>
+      {props.activeCategory === '' ?
+        <Grid item xs={12}><br /><br />
+          Choose a category from the menu above to see the available products.
+          </Grid>
+        :
+        <p></p>}
+
     </div>
   )
 }
