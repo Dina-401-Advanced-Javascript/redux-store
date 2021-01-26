@@ -15,7 +15,7 @@ let initialState = {
     { name: 'Eggs', category: 'food', price: 1.99, inStock: 12 },
     { name: 'Bread', category: 'food', price: 2.39, inStock: 90 },
   ],
-  activeCategory: ''
+  activeCategory: 'clothing'
 };
 
 // actions
