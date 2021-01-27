@@ -47,14 +47,8 @@ const productReducer = (state = initialState, action) => {
         else
           return product;
       })
-      // payload.inStock = payload.inStock - 1;
-      // payload.inCart = payload.inCart + 1;
-      console.log(newArray);
       return { products: newArray };
     case 'ADDTOCART':
-      // console.log(state);
-
-      // let stock = payload.inStock - 1;
       let newArray2 = state.products.map((product) => {
         if (product === payload) {
           return { ...product, inStock: product.inStock - 1, inCart: product.inCart + 1 };
@@ -63,10 +57,7 @@ const productReducer = (state = initialState, action) => {
           return product;
       })
       console.log(newArray2);
-      // payload.inStock = payload.inStock - 1;
-      // payload.inCart = payload.inCart + 1;
       return { products: newArray2 };
-    //return state;
     default:
       return state;
   }

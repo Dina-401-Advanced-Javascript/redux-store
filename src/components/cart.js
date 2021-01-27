@@ -15,9 +15,7 @@ import { removeFromCart, addToCart } from '../store/products';
 const mapDispatchToProps = { removeFromCart, addToCart };
 
 function Cart(props) {
-  const removeFromCart = (product, idx) => {
-    props.removeFromCart(product);
-  }
+
   return (
     <div>
       <Grid container spacing={4} direction="row" id="grid">
@@ -39,10 +37,14 @@ function Cart(props) {
                     <strong>${product.price}</strong>
                   </Typography>
                 </CardContent>
+                <Button disabled={product.inCart < 2} onClick={() => props.removeFromCart(product)}>-</Button>
+                {product.inCart}
+                <Button disabled={product.inStock < 1} onClick={() => props.addToCart(product)}>+</Button>
                 <CardActions id={index + 'CardAction'}>
-                  <Button id={index + 'Button'} size="small" onClick={() => removeFromCart(product)}>Remove from Cart</Button>
+                  <Button id={index + 'Button'} size="small" onClick={() => props.removeFromCart(product)}>Remove from Cart</Button>
                 </CardActions>
               </Card>
+
 
 
             </Grid>
