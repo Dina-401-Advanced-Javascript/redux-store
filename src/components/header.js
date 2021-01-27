@@ -2,57 +2,46 @@ import React from 'react';
 import './header.scss';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
 import { changeCategory } from '../store/categories';
+
+import { NavLink } from 'react-router-dom';
 
 const mapDispatchToProps = { changeCategory };
 
 function Header(props) {
-  const changeCategory = (name) => {
-    props.changeCategory(name);
-  }
 
   return (
     <div className="header">
       <CssBaseline />
+
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6">
-            Browse
+            <NavLink to="/" className="homeLink" >Dee's Fine Art</NavLink>
           </Typography>
-          {props.categories.map((category) => {
-            return (<Button color="inherit" onClick={() => changeCategory(category.name)}>{category.displayName}</Button>)
-          })}
-          {/* <Button color="inherit">Login</Button> */}
+          <span className="linkDiv">
+            {props.categories.map((category, index) => {
+              return (<NavLink to="/products" key={index + 'CategoryLink'} className="menuLink" onClick={() => props.changeCategory(category)}>{category.displayName}</NavLink>)
+            })}
+          </span>
+          <span className="cartDiv">
+            <NavLink to="/cart" className="menuLink" data-testid="cartLink">Cart ({props.products.reduce((acc, curr) => {
+              return acc += curr.inCart
+            }, 0)})</NavLink>
+          </span>
         </Toolbar>
       </AppBar>
-      <Container maxWidth='md'>
-        <Typography variant="h1">
-          {props.activeCategory}
-        </Typography>
-        <Typography variant="h5">
-          {props.categoryDescription}
-        </Typography>
-      </Container>
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  // products: state.shop.products,
-  // activeCategory: state.shop.activeCategory,
-  // categories: state.shop.categories
   activeCategory: state.categories.activeCategory,
-  categories: state.categories.categories
+  categories: state.categories.categories,
+  products: state.products.products
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -7,62 +7,61 @@ import Typography from '@material-ui/core/Typography';
 import { CardContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import './shop.scss'
+import { addToCart } from '../store/products';
+import Container from '@material-ui/core/Container';
 
-// const mapDispatchToProps = { increment, reset };
-const mapDispatchToProps = {};
+const mapDispatchToProps = { addToCart };
 
 function Shop(props) {
-  console.log({ props });
   const addToCart = (product) => {
-    console.log('adding to cart: ', product);
-    //props.addToCart(name);
+    props.addToCart(product);
   }
 
   return (
     <div id="shop">
-      <Grid container spacing={4} direction="row">
-        {props.products.map((product, index) => (
-          product.category === props.activeCategory.toLowerCase() ?
-            <Grid item xs={3}>
-              <div key={index}>
-                <Card className="root" variant="outlined">
-                  <CardContent>
-                    <Typography className="title" color="textSecondary" gutterBottom>
-                      {product.category}
-                    </Typography>
-                    <Typography variant="h5" component="h2">
-                      {product.name}
-                    </Typography>
-                    <Typography className="pos" color="textSecondary">
-                      In-stock: {product.inStock}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                      ${product.price}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" onClick={() => addToCart([product])}>Add to Cart</Button>
-                  </CardActions>
-                </Card>
-              </div> </Grid>
-            : <div></div>
+      <Container maxWidth='xl' className="activeCategory">
+        <Typography variant="h2">
+          {props.activeCategory.displayName}
+        </Typography>
+      </Container>
+      <Grid container spacing={4} direction="row" id="grid">
+        {props.products.map((product, index) => (product.category === props.activeCategory.name.toLowerCase() && product.inStock > 0 ?
+          <Grid item id={index + 'GridItem'} xs={4}>
+            <Card id={index + 'Card'} className="root" variant="outlined">
+              <CardContent id={index + 'CardContent'}>
+                <Typography className="title" color="textSecondary" gutterBottom>
+                  {product.category}
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  {product.name}
+                </Typography>
+                <Typography className="pos" color="textSecondary">
+                  In-stock: {product.inStock}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  <strong>${product.price}</strong>
+                </Typography>
+              </CardContent>
+              <CardActions id={index + 'CardAction'}>
+                <Button id={index + 'Button'} size="small" onClick={() => addToCart(product)}>Add to Cart</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          : <div></div>
         ))}
       </Grid>
-      {props.activeCategory === '' ?
-        <Grid item xs={12}><br /><br />
+      {!props.activeCategory.name ?
+        <Grid id="noCategorySelected" item xs={12}>
+          <br /><br /><br />
           Choose a category from the menu above to see the available products.
-          </Grid>
+        </Grid>
         :
         <p></p>}
-
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  // products: state.shop.products,
-  // activeCategory: state.shop.activeCategory,
-  // categories: state.shop.categories
   products: state.products.products,
   activeCategory: state.categories.activeCategory,
   categories: state.categories.categories
