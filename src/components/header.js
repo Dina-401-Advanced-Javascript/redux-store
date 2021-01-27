@@ -24,7 +24,7 @@ function Header(props) {
           </Typography>
           <span className="linkDiv">
             {props.categories.map((category, index) => {
-              return (<NavLink to="/products" key={index + 'CategoryLink'} className="menuLink" onClick={() => props.changeCategory(category)}>{category.displayName}</NavLink>)
+              return (<NavLink to="/products" data-testid={category.name} key={index + 'CategoryLink'} className="menuLink" onClick={() => props.changeCategory(category)}>{category.displayName}</NavLink>)
             })}
           </span>
           <span className="cartDiv">

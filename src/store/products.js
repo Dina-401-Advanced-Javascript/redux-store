@@ -56,7 +56,7 @@ const productReducer = (state = initialState, action) => {
         else
           return product;
       })
-      console.log(newArray2);
+      // console.log(newArray2);
       return { products: newArray2 };
     default:
       return state;

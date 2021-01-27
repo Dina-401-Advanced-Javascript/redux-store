@@ -24,7 +24,7 @@ function Shop(props) {
           {props.activeCategory.displayName}
         </Typography>
       </Container>
-      <Grid container spacing={4} direction="row" id="grid">
+      <Grid container spacing={4} direction="row" id="grid" key="grid">
         {props.products.map((product, index) => (product.category === props.activeCategory.name.toLowerCase() && product.inStock > 0 ?
           <Grid item id={index + 'GridItem'} xs={4}>
             <Card id={index + 'Card'} className="root" variant="outlined">
@@ -43,7 +43,7 @@ function Shop(props) {
                 </Typography>
               </CardContent>
               <CardActions id={index + 'CardAction'}>
-                <Button id={index + 'Button'} size="small" onClick={() => addToCart(product)}>Add to Cart</Button>
+                <Button data-testid={index + 'Button'} id={index + 'Button'} size="small" onClick={() => addToCart(product)}>Add to Cart</Button>
               </CardActions>
             </Card>
           </Grid>

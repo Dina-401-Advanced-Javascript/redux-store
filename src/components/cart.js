@@ -22,7 +22,7 @@ function Cart(props) {
         {props.products.map((product, index) => product.inCart > 0 ?
           (
             <Grid item id={index + 'GridItem'} xs={12}>
-              <Card id={index + 'Card'} className="root" variant="outlined">
+              <Card id={index + 'Card'} data-testid={index + 'Card'} className="root" variant="outlined">
                 <CardContent id={index + 'CardContent'}>
                   <Typography className="title" color="textSecondary" gutterBottom>
                     {product.category}
@@ -30,7 +30,7 @@ function Cart(props) {
                   <Typography variant="h5" component="h2">
                     {product.name}
                   </Typography>
-                  <Typography className="pos" color="textSecondary">
+                  <Typography data-testid={index + 'InStock'} className="pos" color="textSecondary">
                     Available: {product.inStock}
                   </Typography>
                   <Typography variant="body2" component="p">
@@ -41,7 +41,7 @@ function Cart(props) {
                 {product.inCart}
                 <Button disabled={product.inStock < 1} onClick={() => props.addToCart(product)}>+</Button>
                 <CardActions id={index + 'CardAction'}>
-                  <Button id={index + 'Button'} size="small" onClick={() => props.removeFromCart(product)}>Remove from Cart</Button>
+                  <Button id={index + 'RemoveButton'} data-testid={index + 'Button'} size="small" onClick={() => props.removeFromCart(product)}>Remove from Cart</Button>
                 </CardActions>
               </Card>
 
