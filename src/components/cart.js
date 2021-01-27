@@ -31,7 +31,7 @@ function Cart(props) {
                     {product.name}
                   </Typography>
                   <Typography className="pos" color="textSecondary">
-                    In-stock: {product.inStock}
+                    Available: {product.inStock}
                   </Typography>
                   <Typography variant="body2" component="p">
                     <strong>${product.price}</strong>
