@@ -18,3 +18,7 @@ By Dina Ayoub
 
 * run `npm run predeploy`
 * then run `npm run deploy`
+
+## Testing
+
+* [x] Can add an item to the cart and have that reflected in the header and on the cart page
