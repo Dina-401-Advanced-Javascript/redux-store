@@ -2,11 +2,11 @@
 //category reducer
 let initialState = {
   categories: [
-    { name: 'electronics', displayName: 'Electronics' },
-    { name: 'food', displayName: 'Food' },
-    { name: 'clothing', displayName: 'Clothing' },
+    { name: 'prints', displayName: 'Art Prints' },
+    { name: 'originals', displayName: 'Original Art' },
+    { name: 'pillows', displayName: 'Pillows' }
   ],
-  activeCategory: ''
+  activeCategory: { name: '', displayName: '' }
 }
 
 export const changeCategory = (newCategory) => {
