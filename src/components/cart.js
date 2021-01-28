@@ -4,15 +4,15 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography';
-import Input from '@material-ui/core/Input';
+// import Input from '@material-ui/core/Input';
 import { CardContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import './shop.scss'
-import { removeFromCart, addToCart } from '../store/products';
+import { removeOneFromCart, removeAllFromCart, addToCart } from '../store/products';
 // import Container from '@material-ui/core/Container';
 // import cart from '../store/cart';
 
-const mapDispatchToProps = { removeFromCart, addToCart };
+const mapDispatchToProps = { removeOneFromCart, removeAllFromCart, addToCart };
 
 function Cart(props) {
 
@@ -37,11 +37,11 @@ function Cart(props) {
                     <strong>${product.price}</strong>
                   </Typography>
                 </CardContent>
-                <Button disabled={product.inCart < 2} onClick={() => props.removeFromCart(product)}>-</Button>
+                <Button disabled={product.inCart < 2} onClick={() => props.removeOneFromCart(product)}>-</Button>
                 {product.inCart}
                 <Button disabled={product.inStock < 1} onClick={() => props.addToCart(product)}>+</Button>
                 <CardActions id={index + 'CardAction'}>
-                  <Button id={index + 'RemoveButton'} data-testid={index + 'Button'} size="small" onClick={() => props.removeFromCart(product)}>Remove from Cart</Button>
+                  <Button id={index + 'RemoveButton'} data-testid={index + 'Button'} size="small" onClick={() => props.removeAllFromCart(product)}>Remove from Cart</Button>
                 </CardActions>
               </Card>
 
