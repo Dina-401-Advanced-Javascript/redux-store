@@ -1,33 +1,52 @@
+import superagent from 'superagent';
+
 //products reducer
 let initialState = {
-  products: [
-    { name: '"Starry Night" Print', category: 'prints', price: 29.99, inStock: 999, inCart: 0 },
-    { name: '"The Scream" Print', category: 'prints', price: 19.99, inStock: 999, inCart: 0 },
-    { name: '"The Nomad" Print', category: 'prints', price: 9.99, inStock: 999, inCart: 0 },
-    { name: 'Monet\'s "Lillies" Print', category: 'prints', price: 49.99, inStock: 999, inCart: 0 },
-    { name: '"The Kiss" Print', category: 'prints', price: 24.99, inStock: 999, inCart: 0 },
-    { name: '"The Last Supper" Print', category: 'prints', price: 39.99, inStock: 999, inCart: 0 },
-    { name: 'Rainbow Flag Painting', category: 'originals', price: 1230, inStock: 1, inCart: 0 },
-    { name: 'Aurora Painting', category: 'originals', price: 330, inStock: 1, inCart: 0 },
-    { name: 'Night Sky Painting', category: 'originals', price: 596, inStock: 1, inCart: 0 },
-    { name: 'Night Sky Pillow', category: 'pillows', price: 41.99, inStock: 999, inCart: 0 },
-    { name: 'Aurora Pillow', category: 'pillows', price: 41.99, inStock: 999, inCart: 0 },
-    { name: 'Mountains Pillow', category: 'pillows', price: 41.99, inStock: 999, inCart: 0 },
-    { name: 'Tree of Life Pillow', category: 'pillows', price: 41.99, inStock: 999, inCart: 0 },
-    { name: 'Rainbow Pillow', category: 'pillows', price: 41.99, inStock: 999, inCart: 0 },
-    { name: 'Snow Pillow', category: 'pillows', price: 41.99, inStock: 999, inCart: 0 },
-    { name: 'Beach Pillow', category: 'pillows', price: 41.99, inStock: 999, inCart: 0 },
-  ]
+  products: []
 };
+export const get = () => dispatch => {
+  return superagent.get('https://dina-auth-api.herokuapp.com/api/v1/products')
+    .then(response => {
+      dispatch(getProducts(response.body))
+    })
+}
 
-export const removeFromCart = (product) => {
-  console.log('removing from cart!')
+export const getProducts = payload => {
   return {
-    type: 'REMOVEFROMCART',
+    type: 'GET',
+    payload: payload
+  }
+}
+
+// export const deletePoke = (id) => dispatch => {
+//   return superagent.delete(`https://pokeapi.co/api/v2/pokemon/${id}`)
+//     .then(response => {
+//       dispatch(deleteAction(response.body))
+//     })
+// }
+
+// export const deleteAction = payload => {
+//   return {
+//     type: 'DELETE',
+//     payload: payload
+//   }
+// }
+
+export const removeOneFromCart = (product) => {
+  console.log('removing one from cart!')
+  return {
+    type: 'REMOVEONEFROMCART',
     payload: product
   }
 }
 
+export const removeAllFromCart = (product) => {
+  console.log('removing all from cart!')
+  return {
+    type: 'REMOVEALLFROMCART',
+    payload: product
+  }
+}
 export const addToCart = (product) => {
   console.log('adding to cart!')
   return {
@@ -39,8 +58,19 @@ export const addToCart = (product) => {
 const productReducer = (state = initialState, action) => {
   let { type, payload } = action;
   switch (type) {
-    case 'REMOVEFROMCART':
+    case 'GET':
+      return payload;
+    case 'REMOVEALLFROMCART':
       let newArray = state.products.map((product) => {
+        if (product === payload) {
+          return { ...product, inStock: product.inStock + product.inCart, inCart: 0 };
+        }
+        else
+          return product;
+      })
+      return { products: newArray };
+    case 'REMOVEONEFROMCART':
+      newArray = state.products.map((product) => {
         if (product === payload) {
           return { ...product, inStock: product.inStock + 1, inCart: product.inCart - 1 };
         }
