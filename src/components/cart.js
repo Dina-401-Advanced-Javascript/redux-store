@@ -7,9 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import { CardContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import './shop.scss'
-import { removeOneFromCart, removeAllFromCart, addToCart } from '../store/products';
+import { get, put } from '../store/products';
 
-const mapDispatchToProps = { removeOneFromCart, removeAllFromCart, addToCart };
+const mapDispatchToProps = { get, put };
 
 function Cart(props) {
 
@@ -34,11 +34,11 @@ function Cart(props) {
                     <strong>${product.price}</strong>
                   </Typography>
                 </CardContent>
-                <Button disabled={product.inCart < 2} onClick={() => props.removeOneFromCart(product)}>-</Button>
+                <Button disabled={product.inCart < 2} onClick={() => props.put(product, 1)}>-</Button>
                 {product.inCart}
-                <Button disabled={product.quantity < 1} onClick={() => props.addToCart(product)}>+</Button>
+                <Button disabled={product.quantity < 1} onClick={() => props.put(product, -1)}>+</Button>
                 <CardActions id={index + 'CardAction'}>
-                  <Button id={index + 'RemoveButton'} data-testid={index + 'Button'} size="small" onClick={() => props.removeAllFromCart(product)}>Remove from Cart</Button>
+                  <Button id={index + 'RemoveButton'} data-testid={index + 'Button'} size="small" onClick={() => props.put(product, product.inCart)}>Remove from Cart</Button>
                 </CardActions>
               </Card>
             </Grid>

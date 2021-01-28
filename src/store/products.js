@@ -6,6 +6,7 @@ let initialState = {
 };
 
 export const get = () => dispatch => {
+  console.log('iN GET ----------------=')
   return superagent.get('https://dina-auth-api.herokuapp.com/api/v1/products')
     .then(response => {
       response.body.forEach(product => {
@@ -23,7 +24,7 @@ const getProducts = payload => {
 }
 
 export const put = (product, number) => dispatch => {
-  console.log('in put, and here is the product: ', product);
+  // console.log('in put, and here is the product: ', product);
   let updatedProduct = { ...product, quantity: product.quantity + number }
   return superagent.put(`https://dina-auth-api.herokuapp.com/api/v1/products/${updatedProduct._id}`)
     .send(updatedProduct)
@@ -107,9 +108,6 @@ const productReducer = (state = initialState, action) => {
       // console.log('in ADDTOCART switch', state.products);
       newArray = state.products.map((product) => {
         if (product._id === payload._id) {
-          // console.log('in if statement!!!', { product });
-          // const foo = put({ ...product, quantity: product.quantity - 1 });
-          // console.log(foo);
           return { ...product, quantity: product.quantity - 1, inCart: product.inCart + 1 };
         }
         else
