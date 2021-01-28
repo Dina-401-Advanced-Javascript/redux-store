@@ -1,21 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography';
+// import CardMedia from '@material-ui/core/CardMedia'
 import { CardContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import './shop.scss'
-import { addToCart } from '../store/products';
+import { get, put } from '../store/products';
 import Container from '@material-ui/core/Container';
 
-const mapDispatchToProps = { addToCart };
+const mapDispatchToProps = { get, put };
 
 function Shop(props) {
   const addToCart = (product) => {
-    props.addToCart(product);
+    props.put(product, -1);
   }
+
+  const getProducts = async () => {
+    await props.get();
+    console.log({ props });
+  }
+
+  useEffect(() => {
+    console.log(props.products);
+    getProducts();
+    console.log(props.products);
+  }, []);
 
   return (
     <div id="shop">
@@ -25,25 +37,23 @@ function Shop(props) {
         </Typography>
       </Container>
       <Grid container spacing={4} direction="row" id="grid" key="grid">
-        {props.products.map((product, index) => (product.category === props.activeCategory.name.toLowerCase() && product.inStock > 0 ?
-          <Grid item id={index + 'GridItem'} xs={4}>
+        {props.products.map((product, index) => (product.category === props.activeCategory.name.toLowerCase() && product.quantity > 0 ?
+          <Grid item id={index + 'GridItem'} xs={6} sm={2}>
             <Card id={index + 'Card'} className="root" variant="outlined">
+              {product.img ? <img className="images" alt={product.name} src={product.img}></img> : <p></p>}
               <CardContent id={index + 'CardContent'}>
-                <Typography className="title" color="textSecondary" gutterBottom>
-                  {product.category}
-                </Typography>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h6" component="h2">
                   {product.name}
                 </Typography>
                 <Typography className="pos" color="textSecondary">
-                  In-stock: {product.inStock}
+                  In-stock: {product.quantity}
                 </Typography>
-                <Typography variant="body2" component="p">
+                <Typography variant="h6" component="p">
                   <strong>${product.price}</strong>
                 </Typography>
               </CardContent>
-              <CardActions id={index + 'CardAction'}>
-                <Button data-testid={index + 'Button'} id={index + 'Button'} size="small" onClick={() => addToCart(product)}>Add to Cart</Button>
+              <CardActions className="addToCartButton" id={index + 'CardAction'}>
+                <Button className="addToCartButton" data-testid={index + 'Button'} id={index + 'Button'} size="small" onClick={() => addToCart(product)}>Add to Cart</Button>
               </CardActions>
             </Card>
           </Grid>

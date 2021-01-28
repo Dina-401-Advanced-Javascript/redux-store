@@ -4,13 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography';
-// import Input from '@material-ui/core/Input';
 import { CardContent } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import './shop.scss'
 import { removeOneFromCart, removeAllFromCart, addToCart } from '../store/products';
-// import Container from '@material-ui/core/Container';
-// import cart from '../store/cart';
 
 const mapDispatchToProps = { removeOneFromCart, removeAllFromCart, addToCart };
 
@@ -30,8 +27,8 @@ function Cart(props) {
                   <Typography variant="h5" component="h2">
                     {product.name}
                   </Typography>
-                  <Typography data-testid={index + 'InStock'} className="pos" color="textSecondary">
-                    Available: {product.inStock}
+                  <Typography data-testid={index + 'quantity'} className="pos" color="textSecondary">
+                    Available: {product.quantity}
                   </Typography>
                   <Typography variant="body2" component="p">
                     <strong>${product.price}</strong>
@@ -39,14 +36,11 @@ function Cart(props) {
                 </CardContent>
                 <Button disabled={product.inCart < 2} onClick={() => props.removeOneFromCart(product)}>-</Button>
                 {product.inCart}
-                <Button disabled={product.inStock < 1} onClick={() => props.addToCart(product)}>+</Button>
+                <Button disabled={product.quantity < 1} onClick={() => props.addToCart(product)}>+</Button>
                 <CardActions id={index + 'CardAction'}>
                   <Button id={index + 'RemoveButton'} data-testid={index + 'Button'} size="small" onClick={() => props.removeAllFromCart(product)}>Remove from Cart</Button>
                 </CardActions>
               </Card>
-
-
-
             </Grid>
           ) : <div></div>)}
       </Grid>
