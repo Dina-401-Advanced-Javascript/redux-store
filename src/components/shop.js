@@ -24,9 +24,7 @@ function Shop(props) {
   }
 
   useEffect(() => {
-    console.log(props.products);
     getProducts();
-    console.log(props.products);
   }, []);
 
   return (
