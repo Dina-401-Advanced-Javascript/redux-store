@@ -44,26 +44,6 @@ export const put = (product, number) => dispatch => {
     })
 }
 
-// const putProduct = payload => {
-//   return {
-//     type: 'PUT',
-//     payload: payload
-//   }
-// }
-// export const deletePoke = (id) => dispatch => {
-//   return superagent.delete(`https://pokeapi.co/api/v2/pokemon/${id}`)
-//     .then(response => {
-//       dispatch(deleteAction(response.body))
-//     })
-// }
-
-// export const deleteAction = payload => {
-//   return {
-//     type: 'DELETE',
-//     payload: payload
-//   }
-// }
-
 export const removeOneFromCart = (product) => {
   // console.log('removing one from cart!')
   return {

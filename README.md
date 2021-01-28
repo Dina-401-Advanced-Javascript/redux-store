@@ -9,6 +9,8 @@ By Dina Ayoub
 * Can remove a product from cart
 * Can view cart
 * Can change quantities in the cart
+* Can retrieve a list of products from the API
+* Can update quantities in the API's database whenever items are added or removed from the cart
 
 ## Installation
 
